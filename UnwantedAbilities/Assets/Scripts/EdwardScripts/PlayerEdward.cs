@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerEdward : MonoBehaviour
 { 
     // Rigidbody for physics simulation
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     // x movement speed
     public float movementSpeed = 5f;
@@ -26,6 +26,9 @@ public class PlayerEdward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject water = GameObject.FindWithTag("ShouldBouyant");
+        BuoyancyEffector2D Buoyancy = water.GetComponent<BuoyancyEffector2D>();
+        Buoyancy.density = 0;
         rb = GetComponent<Rigidbody2D>(); 
         @input = new Input();
         @input.Enable();
@@ -51,6 +54,7 @@ public class PlayerEdward : MonoBehaviour
             jumpTimeCounter = jumpTime;
         }
 
+
         if (@input.Default.Jump.ReadValue<float>() > 0 && isJumping)
         {
             if (jumpTimeCounter > 0)
@@ -68,5 +72,8 @@ public class PlayerEdward : MonoBehaviour
         {
             isJumping = false;
         }
+
+        //Swimming Movement
+
     }
 }

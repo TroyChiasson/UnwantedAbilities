@@ -23,10 +23,6 @@ public class Player : MonoBehaviour
     private bool jumpIsHeld = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update() {
@@ -71,6 +67,7 @@ public class Player : MonoBehaviour
             if (jump_cur_time >= jump_tot_time) {
                 jumpIsHeld = false;
             }
+
         }
 
 
