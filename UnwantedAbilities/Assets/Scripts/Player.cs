@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
                 jumpIsHeld = false;
 
                 ResetYVelocity();
-                rb.AddForce(Vector2.down * 10f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
             }
 
             // move up
