@@ -33,11 +33,14 @@ public class Player : MonoBehaviour
     public GameObject water;
     public PolygonCollider2D waterCollider;
 
+    public double Stamina;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Stamina = 100;
         water = GameObject.FindWithTag("ShouldBouyant");
         buoyancy = water.GetComponent<BuoyancyEffector2D>();
         waterCollider = water.GetComponent<PolygonCollider2D>();
@@ -132,7 +135,21 @@ public class Player : MonoBehaviour
         //SWIMMING MOVEMENT
         if (bc.IsTouching(waterCollider))
         {
-            print("YOOO WETNESS");
+            //CHECK IF DROWNING
+            if (bc.transform.localPosition.y < waterCollider.transform.localPosition.y + 8)
+            {
+                Stamina += -.1;
+            }
+            else
+            {
+                Stamina = 100;
+            }
+
+            if (Stamina < 0)
+            {
+                print("death");
+            }
+
 
             //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
 
