@@ -37,6 +37,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""MoveUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c1644c9-2e30-4957-890d-f0a523b31793"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b2eefa7-aa47-4fb5-940a-caab1d298aa2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""MoveRight"",
                     ""type"": ""Button"",
                     ""id"": ""a0996bb9-2c97-48a9-ba22-b6f02d882bfa"",
@@ -108,6 +126,28 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df2fda3d-f2e8-46ab-b230-12fb3a089ca8"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50a71104-97cb-40e8-b432-e2c5edec12d5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -117,6 +157,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_MoveLeft = m_Default.FindAction("MoveLeft", throwIfNotFound: true);
+        m_Default_MoveUp = m_Default.FindAction("MoveUp", throwIfNotFound: true);
+        m_Default_MoveDown = m_Default.FindAction("MoveDown", throwIfNotFound: true);
         m_Default_MoveRight = m_Default.FindAction("MoveRight", throwIfNotFound: true);
         m_Default_Jump = m_Default.FindAction("Jump", throwIfNotFound: true);
         m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
@@ -182,6 +224,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Default;
     private List<IDefaultActions> m_DefaultActionsCallbackInterfaces = new List<IDefaultActions>();
     private readonly InputAction m_Default_MoveLeft;
+    private readonly InputAction m_Default_MoveUp;
+    private readonly InputAction m_Default_MoveDown;
     private readonly InputAction m_Default_MoveRight;
     private readonly InputAction m_Default_Jump;
     private readonly InputAction m_Default_Interact;
@@ -190,6 +234,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
         private @Input m_Wrapper;
         public DefaultActions(@Input wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveLeft => m_Wrapper.m_Default_MoveLeft;
+        public InputAction @MoveUp => m_Wrapper.m_Default_MoveUp;
+        public InputAction @MoveDown => m_Wrapper.m_Default_MoveDown;
         public InputAction @MoveRight => m_Wrapper.m_Default_MoveRight;
         public InputAction @Jump => m_Wrapper.m_Default_Jump;
         public InputAction @Interact => m_Wrapper.m_Default_Interact;
@@ -205,6 +251,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MoveLeft.started += instance.OnMoveLeft;
             @MoveLeft.performed += instance.OnMoveLeft;
             @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveUp.started += instance.OnMoveUp;
+            @MoveUp.performed += instance.OnMoveUp;
+            @MoveUp.canceled += instance.OnMoveUp;
+            @MoveDown.started += instance.OnMoveDown;
+            @MoveDown.performed += instance.OnMoveDown;
+            @MoveDown.canceled += instance.OnMoveDown;
             @MoveRight.started += instance.OnMoveRight;
             @MoveRight.performed += instance.OnMoveRight;
             @MoveRight.canceled += instance.OnMoveRight;
@@ -221,6 +273,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MoveLeft.started -= instance.OnMoveLeft;
             @MoveLeft.performed -= instance.OnMoveLeft;
             @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveUp.started -= instance.OnMoveUp;
+            @MoveUp.performed -= instance.OnMoveUp;
+            @MoveUp.canceled -= instance.OnMoveUp;
+            @MoveDown.started -= instance.OnMoveDown;
+            @MoveDown.performed -= instance.OnMoveDown;
+            @MoveDown.canceled -= instance.OnMoveDown;
             @MoveRight.started -= instance.OnMoveRight;
             @MoveRight.performed -= instance.OnMoveRight;
             @MoveRight.canceled -= instance.OnMoveRight;
@@ -250,6 +308,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
     public interface IDefaultActions
     {
         void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveUp(InputAction.CallbackContext context);
+        void OnMoveDown(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
