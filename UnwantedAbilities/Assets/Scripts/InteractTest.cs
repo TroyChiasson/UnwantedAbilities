@@ -18,19 +18,19 @@ public class InteractTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.Default.Interact.triggered && inRange){
+        if (Game.Instance.input.Default.Interact.triggered && inRange){
             Destroy(interact);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("PlayerEdward")){
+        if (other.CompareTag("Player")){
             inRange = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("PlayerEdward")){
+        if (other.CompareTag("Player")){
             inRange = false; 
         }
     }
