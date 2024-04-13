@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private bool rightIsHeld = false;
     private bool jumpIsHeld = false;
 
-    private int jumpsAvailable = 1;
+    private int jumpsAvailable;
     private int maxJumps = 1;
 
     public BoxCollider2D bc;
@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         waterCollider = water.GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        ResetJumps();
     }
 
 
@@ -80,8 +81,17 @@ public class Player : MonoBehaviour
             jumpIsHeld = true;
             jump_cur_time = 0f;
             jumpsAvailable--;
+
+            var curVel = rb.velocity;
+            curVel.y = 0;
+            rb.velocity = curVel;
+            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
         }
-        if (Game.Instance.input.Default.Jump.WasReleasedThisFrame()) { jumpIsHeld = false; }
+        if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
+            jumpIsHeld = false;
+
+            rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
+        }
 
         // move up
         // ***NOTE rigid body is affected by gravity automatically in unity
@@ -90,7 +100,7 @@ public class Player : MonoBehaviour
         if (jumpIsHeld) {
             var curVector = transform.localPosition;
             curVector.y = curVector.y + jumpSpeed * Time.deltaTime;
-            transform.localPosition = curVector;
+            //transform.localPosition = curVector;
 
             //you cant hold jump forever
             jump_cur_time += Time.deltaTime;
