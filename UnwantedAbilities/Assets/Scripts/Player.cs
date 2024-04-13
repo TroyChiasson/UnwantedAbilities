@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
             if (upIsHeld)
             {
                 var curVector = transform.localPosition;
-                curVector.y = curVector.y + movementSpeed * Time.deltaTime;
+                curVector.y = curVector.y +movementSpeed * Time.deltaTime;
                 transform.localPosition = curVector;
             }
 
@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
             if (Game.Instance.input.Default.MoveDown.WasPressedThisFrame()) { downIsHeld = true; }
             if (Game.Instance.input.Default.MoveDown.WasReleasedThisFrame()) { downIsHeld = false; }
 
-            // move left
+            // move Down
             if (downIsHeld)
             {
                 var curVector = transform.localPosition;
