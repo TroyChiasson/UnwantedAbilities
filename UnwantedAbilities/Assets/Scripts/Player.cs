@@ -25,14 +25,25 @@ public class Player : MonoBehaviour
     private int jumpsAvailable;
     private int maxJumps = 1;
 
-    private Rigidbody2D rb;
+    public BoxCollider2D bc;
+    public Rigidbody2D rb;
+    public BuoyancyEffector2D buoyancy;
+    public GameObject water;
+    public PolygonCollider2D waterCollider;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        water = GameObject.FindWithTag("ShouldBouyant");
+        buoyancy = water.GetComponent<BuoyancyEffector2D>();
+        waterCollider = water.GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        bc = GetComponent<BoxCollider2D>();
         ResetJumps();
     }
+
 
     public void ResetJumps() {
         jumpsAvailable = maxJumps;
@@ -106,7 +117,11 @@ public class Player : MonoBehaviour
 
         }
 
-
+        //SWIMMING MOVEMENT
+        if (bc.IsTouching(waterCollider))
+        {
+            print("YOOO WETNESS");
+        }
 
     }
 
