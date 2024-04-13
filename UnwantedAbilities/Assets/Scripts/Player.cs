@@ -22,10 +22,25 @@ public class Player : MonoBehaviour
     private bool rightIsHeld = false;
     private bool jumpIsHeld = false;
 
+    private int jumpsAvailable = 1;
+    private int maxJumps = 1;
+
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void ResetJumps() {
+        jumpsAvailable = maxJumps;
+    }
 
     // Update is called once per frame
     void Update() {
+
+        //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
 
         // A key
         if (Game.Instance.input.Default.MoveLeft.WasPressedThisFrame()) { leftIsHeld = true; }
@@ -50,7 +65,11 @@ public class Player : MonoBehaviour
         }
 
         // space key
-        if (Game.Instance.input.Default.Jump.WasPressedThisFrame()) { jumpIsHeld = true; jump_cur_time = 0f; }
+        if (Game.Instance.input.Default.Jump.WasPressedThisFrame() && jumpsAvailable > 0) {
+            jumpIsHeld = true;
+            jump_cur_time = 0f;
+            jumpsAvailable--;
+        }
         if (Game.Instance.input.Default.Jump.WasReleasedThisFrame()) { jumpIsHeld = false; }
 
         // move up
