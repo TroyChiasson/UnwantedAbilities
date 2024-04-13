@@ -32,21 +32,7 @@ public class AnimatedProgressbar : MonoBehaviour
 			m_barUI.uvRect = rect;
 		}
 	}
-    public Start()
-    {
 
-        player = GameObject.FindWithTag("Player");
-
-        stamina = player.GetComponent<double>();
-        print(stamina);
-        while (m_fillAmount < 1)
-        {
-            print(stamina);
-            m_fillAmount = (float)stamina / 100;
-            m_progressbarUI.FillAmount = m_fillAmount;
-            yield return null;
-        }
-    }
     private void Init()
 	{
 		if ( m_isInit ) return;

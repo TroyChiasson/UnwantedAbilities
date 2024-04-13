@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
 
         if (!bc.IsTouching(waterCollider))
         {
+            
             if (Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer)) {
                 jumpsAvailable = maxJumps;
             }
@@ -113,14 +114,7 @@ public class Player : MonoBehaviour
                 jumpIsHeld = false;
 
                 ResetYVelocity();
-                rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
-            }
-            if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld)
-            {
-                jumpIsHeld = false;
-
-                ResetYVelocity();
-                rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.down * 10f, ForceMode2D.Impulse);
             }
 
             // move up
