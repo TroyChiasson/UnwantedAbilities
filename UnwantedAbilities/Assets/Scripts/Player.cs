@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
     public BuoyancyEffector2D buoyancy;
     public GameObject water;
     public PolygonCollider2D waterCollider;
-
+	
     public double Stamina;
-
-
+    public LayerMask groundLayer;
+    private float raycastDistance = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +65,11 @@ public class Player : MonoBehaviour
 
         if (!bc.IsTouching(waterCollider))
         {
+            if (Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer)) {
+                jumpsAvailable = maxJumps;
+            }
 
+            //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
             //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
 
             // A key
@@ -98,6 +102,15 @@ public class Player : MonoBehaviour
                 jumpIsHeld = true;
                 jump_cur_time = 0f;
                 jumpsAvailable--;
+
+                ResetYVelocity();
+                rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+
+                var vel = rb.velocity;
+                print(vel.y);
+            }
+            if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
+                jumpIsHeld = false;
 
                 ResetYVelocity();
                 rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
