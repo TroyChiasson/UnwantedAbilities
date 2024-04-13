@@ -49,6 +49,10 @@ public class Player : MonoBehaviour
         ResetJumps();
     }
 
+    public void Respawn() {
+        transform.localPosition = new();
+    }
+
 
     public void ResetJumps() {
         jumpsAvailable = maxJumps;
