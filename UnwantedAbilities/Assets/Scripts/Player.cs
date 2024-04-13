@@ -38,6 +38,12 @@ public class Player : MonoBehaviour
         jumpsAvailable = maxJumps;
     }
 
+    public void ResetYVelocity() {
+        var curVel = rb.velocity;
+        curVel.y = 0;
+        rb.velocity = curVel;
+    }
+
     // Update is called once per frame
     void Update() {
 
@@ -71,14 +77,13 @@ public class Player : MonoBehaviour
             jump_cur_time = 0f;
             jumpsAvailable--;
 
-            var curVel = rb.velocity;
-            curVel.y = 0;
-            rb.velocity = curVel;
+            ResetYVelocity();
             rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
         }
         if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
             jumpIsHeld = false;
 
+            ResetYVelocity();
             rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
         }
 
@@ -87,14 +92,16 @@ public class Player : MonoBehaviour
         //         gravity is exponential, this movement up is linear
         //         if there is choppy jump movement this is why
         if (jumpIsHeld) {
-            var curVector = transform.localPosition;
-            curVector.y = curVector.y + jumpSpeed * Time.deltaTime;
+            //var curVector = transform.localPosition;
+            //curVector.y = curVector.y + jumpSpeed * Time.deltaTime;
             //transform.localPosition = curVector;
 
             //you cant hold jump forever
-            jump_cur_time += Time.deltaTime;
-            if (jump_cur_time >= jump_tot_time) {
+            var vel = rb.velocity;
+            if (vel.y <= 0) {
                 jumpIsHeld = false;
+                ResetYVelocity();
+                rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
             }
 
         }
