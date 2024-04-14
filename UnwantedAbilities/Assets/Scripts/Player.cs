@@ -101,7 +101,6 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
 
                 var vel = rb.velocity;
-                print(vel.y);
             }
             if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
                 jumpIsHeld = false;
@@ -128,6 +127,12 @@ public class Player : MonoBehaviour
                     ResetYVelocity();
                     rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
                 }
+            }
+
+            if (playerHealth <= 0)
+            {
+            SceneManager.LoadScene(Respawn);
+            playerHealth = 30;
             }
     }
 
