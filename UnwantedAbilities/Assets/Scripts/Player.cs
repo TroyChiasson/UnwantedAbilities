@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -8,14 +9,11 @@ public class Player : MonoBehaviour
     //x movement speed
     private float movementSpeed = 5f;
 
-    //y movement speed
-    private float jumpSpeed = 10f;
+    // health 
+    public int playerHealth;
 
-    //longest amount of time the jump key is allowed to be held
-    private float jump_tot_time = 0.5f;
-
-    //how long the jump key has been held for
-    private float jump_cur_time = 0f;
+    // respawn scene
+    public int Respawn = 1; 
 
     //keyboard presses
     private bool upIsHeld = false;
@@ -40,6 +38,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHealth = 30; 
         Stamina = 100;
         water = GameObject.FindWithTag("ShouldBouyant");
         buoyancy = water.GetComponent<BuoyancyEffector2D>();
@@ -48,11 +47,6 @@ public class Player : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         ResetJumps();
     }
-
-    public void Respawn() {
-        transform.localPosition = new();
-    }
-
 
     public void ResetJumps() {
         jumpsAvailable = maxJumps;
@@ -105,7 +99,6 @@ public class Player : MonoBehaviour
             if (Game.Instance.input.Default.Jump.WasPressedThisFrame() && jumpsAvailable > 0)
             {
                 jumpIsHeld = true;
-                jump_cur_time = 0f;
                 jumpsAvailable--;
 
                 ResetYVelocity();
@@ -216,7 +209,6 @@ public class Player : MonoBehaviour
             if (Game.Instance.input.Default.Jump.WasPressedThisFrame() && jumpsAvailable > 0)
             {
                 jumpIsHeld = true;
-                jump_cur_time = 0f;
                 jumpsAvailable--;
 
                 ResetYVelocity();
@@ -252,7 +244,21 @@ public class Player : MonoBehaviour
             }
         }
 
+
+        if (playerHealth <= 0)
+        {
+            SceneManager.LoadScene(Respawn);
+            playerHealth = 30;
+        }
+   
     }
+
+    public void TakeDamage(int trapDamage)
+    {
+            playerHealth -= trapDamage;
+            Debug.Log(playerHealth);
+    }
+
 
 
 }

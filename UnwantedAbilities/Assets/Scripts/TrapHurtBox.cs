@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TrapHurtBox : MonoBehaviour
 {
-
-    // this is player
+    // Object
     public Player player;
 
-    // if player touch trap then player = die
+    public int trapDamage; 
+
+    // Trap Damage on Hit
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject == player.gameObject) {
-            print("test");
-            player.Respawn();
+            
+            player.TakeDamage(trapDamage);
+                   
         }
     }
 }
