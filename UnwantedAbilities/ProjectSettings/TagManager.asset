@@ -55,11 +55,11 @@ TagManager:
   - name: Deco
     uniqueID: 2531896103
     locked: 0
-  - name: Fire
-    uniqueID: 2440108187
-    locked: 0
   - name: Player
     uniqueID: 647071419
+    locked: 0
+  - name: Fire
+    uniqueID: 2440108187
     locked: 0
   - name: Water
     uniqueID: 928691437
