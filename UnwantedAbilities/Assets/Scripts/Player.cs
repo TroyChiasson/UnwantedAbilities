@@ -130,4 +130,8 @@ public class Player : MonoBehaviour
                 }
             }
     }
+
+    public void TakeDamage(int trapDamage) {
+        playerHealth -= trapDamage;
+    }
 }

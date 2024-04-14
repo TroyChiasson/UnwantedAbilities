@@ -13,9 +13,7 @@ public class TrapHurtBox : MonoBehaviour
     // Trap Damage on Hit
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject == player.gameObject) {
-            
             player.TakeDamage(trapDamage);
-                   
         }
     }
 }
