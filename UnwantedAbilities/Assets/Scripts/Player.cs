@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public int playerHealth;
 
     // respawn scene
-    public int Respawn = 1; 
+    public int Respawn = 2; 
     //y movement speed
     public static float jumpSpeed = 10f;
 
