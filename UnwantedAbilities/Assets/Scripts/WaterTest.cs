@@ -40,6 +40,7 @@ public class WaterTest : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log(other.gameObject.name);
         if (other.CompareTag("Player")){
             Player.movementSpeed = 2.5f;
             Player.jumpSpeed = .1f;
