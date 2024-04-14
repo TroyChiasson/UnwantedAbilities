@@ -14,7 +14,7 @@ public class TrapHurtBox : MonoBehaviour
     public int frameTimer = 1;
     void Update() {
         frameTimer++;
-        if (inTrap == true && frameTimer % 10 == 0) {
+        if (inTrap == true && frameTimer % 10 == 0 && player.fireImmunity == false) {
             player.TakeDamage(trapDamage);
             Debug.Log(player.playerHealth);
             frameTimer = 1;

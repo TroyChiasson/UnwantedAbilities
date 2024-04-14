@@ -12,6 +12,9 @@ TagManager:
   - ShouldBouyant
   - Interactable
   - Water
+  - FireStatue
+  - AirStatue
+  - WaterStatue
   layers:
   - Default
   - TransparentFX

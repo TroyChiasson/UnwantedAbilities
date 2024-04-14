@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaterTest : MonoBehaviour
 {
+    public Player player;
     private bool inWater;
     private int waitTime;
     private bool jumpIsHeld;
@@ -18,7 +19,8 @@ public class WaterTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inWater == true) {
+        if (inWater == true && player.waterBreathing == false) {
+
             waitTime++;
             if (waitTime == 100) {
                 Player.stamina--;
@@ -31,12 +33,8 @@ public class WaterTest : MonoBehaviour
                 waitTime = 0;
             }
         }
-        if (Game.Instance.input.Default.Jump.WasPressedThisFrame()){
-                jumpIsHeld = true;
-        }
-        if (Game.Instance.input.Default.Jump.WasReleasedThisFrame()){
-                jumpIsHeld = false;
-        }
+        
+       
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -47,7 +45,7 @@ public class WaterTest : MonoBehaviour
             Player.jump_tot_time = 100000f;
             rb2d.gravityScale = 0;
             inWater = true;
-            if (jumpIsHeld) {
+            if (Player.jumpIsHeld) {
                 rb2d.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
             }
         }

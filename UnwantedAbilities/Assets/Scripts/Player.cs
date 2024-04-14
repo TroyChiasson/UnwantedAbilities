@@ -29,14 +29,19 @@ public class Player : MonoBehaviour
     private bool downIsHeld = false;
     private bool leftIsHeld = false;
     private bool rightIsHeld = false;
-    private bool jumpIsHeld = false;
+    public static bool jumpIsHeld = false;
+
+
+    public bool fireImmunity = true;
+    public bool waterBreathing = true;
+    public bool doubleJump = true;
 
     private int jumpsAvailable;
-    public static int maxJumps = 1;
+    public static int maxJumps = 2;
     public Rigidbody2D rb;
     public static double stamina;
     public LayerMask groundLayer;
-    private float raycastDistance = 1;
+    private float raycastDistance = .5f;
 
     // Start is called before the first frame update
     void Start()
@@ -52,17 +57,35 @@ public class Player : MonoBehaviour
         jumpsAvailable = maxJumps;
     }
 
+    public void noFireImmunity()
+    {
+        fireImmunity = false;     
+    }
+
+    public void noWaterBreathing()
+    {
+        waterBreathing = false;
+    }
+    public void noDoubleJump()
+    {
+        maxJumps = 1;
+    }
+
     public void ResetYVelocity() {
         var curVel = rb.velocity;
         curVel.y = 0;
         rb.velocity = curVel;
     }
-
-    // Update is called once per frame
-    void Update() {          
-            if (Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer)) {
-                jumpsAvailable = maxJumps;
-            }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals("Ground") && Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, groundLayer) == false && Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, groundLayer)==false && Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, groundLayer)==false)
+        {
+            jumpsAvailable = maxJumps;
+        }
+    }
+            // Update is called once per frame
+            void Update() {
+          
 
             //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
             //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
@@ -134,6 +157,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene(Respawn);
             playerHealth = 30;
             }
+        print(jumpsAvailable);
     }
 
     public void TakeDamage(int trapDamage) {
