@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class InteractTest : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class InteractTest : MonoBehaviour
     private Vector2 textPos;
     private bool inRange;
     public Player player;
+    public bool fireCheck = false;
+    public bool waterCheck = false;
+    public bool jumpCheck = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,19 +38,34 @@ public class InteractTest : MonoBehaviour
             replacement.transform.position = new Vector2(pos.x, pos.y); 
             if (gameObject.tag == "FireStatue") {
                 player.noFireImmunity();
+                fireCheck = true;
+                checkIfWin();
                 player.RelocatePlayer();
                
 
             }
             if (gameObject.tag == "WaterStatue") {
                 player.noWaterBreathing();
+                waterCheck = true;
+                checkIfWin();
                 player.RelocatePlayer();
-            }
+                
+}
             if (gameObject.tag == "AirStatue") {
                 player.noDoubleJump();
+                jumpCheck = true;
+                checkIfWin();
                 player.RelocatePlayer();
             }
         }
+    }
+    public void checkIfWin()
+    {
+        if(waterCheck == true && fireCheck == true && jumpCheck == true)
+        {
+            SceneManager.LoadScene(0);
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other) {
