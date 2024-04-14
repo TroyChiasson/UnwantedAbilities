@@ -56,18 +56,6 @@ public class Player : MonoBehaviour
         rb.velocity = curVel;
     }
 
-    /*public void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Water")) {
-            rb.gravityScale = 0;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Water")) {
-            rb.gravityScale = 1;
-        }
-    }*/
-
     // Update is called once per frame
     void Update() {          
             if (Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer)) {
