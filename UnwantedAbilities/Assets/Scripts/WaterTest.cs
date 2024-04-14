@@ -27,9 +27,9 @@ public class WaterTest : MonoBehaviour
                 print(Player.stamina);
                 waitTime = 0;
             }
-            if (waitTime == 100 && Player.stamina == 0 && Player.health > 0) {
-                Player.health--;
-                print(Player.health);
+            if (waitTime == 100 && Player.stamina == 0 && player.playerHealth > 0) {
+                player.playerHealth--;
+                print(player.playerHealth);
                 waitTime = 0;
             }
         }
@@ -56,7 +56,7 @@ public class WaterTest : MonoBehaviour
             Player.movementSpeed = 5f;
             Player.jumpSpeed = 10f;
             Player.jump_tot_time = .5f;
-            Player.stamina = 100;
+            Player.stamina = 15;
             rb2d.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
             rb2d.gravityScale = 1;
             inWater = false;        

@@ -9,6 +9,9 @@ public class InteractTest : MonoBehaviour
 {
     private Input @input;
     public GameObject interact;
+    public GameObject fireStatue;
+    public GameObject waterStatue;
+    public GameObject airStatue;
     public GameObject replacement;
     public GameObject textObject;
     public TMP_Text popUp;
@@ -20,59 +23,71 @@ public class InteractTest : MonoBehaviour
     public bool fireCheck = false;
     public bool waterCheck = false;
     public bool jumpCheck = false;
+
     // Start is called before the first frame update
     void Start()
     {
         input = new Input();
         input.Enable();
         inRange = false;
-        pos = transform.position;
+        interact = gameObject.GetComponent<GameObject>();
+        pos = interact.transform.position;
         textPos = textObject.transform.position;
     }
+    public void callFireStatue()
+    {
+        player.noFireImmunity();
+        fireCheck = true;
+        player.RelocatePlayer();
+        checkIfWin();
+        Destroy(fireStatue);
+ 
+    }
+
+    public void callWaterStatue()
+    {
+            player.noWaterBreathing();
+            waterCheck = true;
+            player.RelocatePlayer();
+            checkIfWin();
+            Destroy(waterStatue);
+    
+    }
+    public void callAirStatue()
+    {
+        player.noDoubleJump();
+        jumpCheck = true;
+        player.RelocatePlayer();
+        checkIfWin();
+        Destroy(airStatue);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Game.Instance.input.Default.Interact.triggered && inRange){
-            Destroy(interact);
-            replacement.transform.position = new Vector2(pos.x, pos.y); 
-            if (gameObject.tag == "FireStatue") {
-                player.noFireImmunity();
-                fireCheck = true;
-                checkIfWin();
-                player.RelocatePlayer();
-               
+        
 
-            }
-            if (gameObject.tag == "WaterStatue") {
-                player.noWaterBreathing();
-                waterCheck = true;
-                checkIfWin();
-                player.RelocatePlayer();
-                
-}
-            if (gameObject.tag == "AirStatue") {
-                player.noDoubleJump();
-                jumpCheck = true;
-                checkIfWin();
-                player.RelocatePlayer();
-            }
-        }
+       
     }
     public void checkIfWin()
     {
         if(waterCheck == true && fireCheck == true && jumpCheck == true)
         {
-            SceneManager.LoadScene(0);
+
+            player.CongratsPlayer();
         }
 
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player")){
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.CompareTag("Player"))
+        {
             inRange = true;
             popUp.text = textStr;
             popUp.transform.position = new Vector2(pos.x, pos.y + 2f);
+            
         }
     }
 

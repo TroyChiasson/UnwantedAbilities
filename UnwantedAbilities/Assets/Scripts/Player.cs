@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerHealth = 30;
-        stamina = 100;
+        stamina = 15;
         health = 100;
         rb = GetComponent<Rigidbody2D>();
         ResetJumps();
@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
     public void RespawnPlayer()
     {
         Die.Play();
-        SceneManager.LoadScene(Respawn);
+        SceneManager.LoadScene(2);
         playerHealth = 30;
     }
 
@@ -184,6 +184,12 @@ public class Player : MonoBehaviour
     {
         Spawn.Play();
         transform.localPosition = new Vector3(3.50822997f, 0.633381486f, 0.0486094989f);
+        playerHealth = 30;
+    }
+    public void CongratsPlayer()
+    {
+        
+        SceneManager.LoadScene(0);
         playerHealth = 30;
     }
     public void TakeDamage(int trapDamage) {
