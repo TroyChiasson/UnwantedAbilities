@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InteractTest : MonoBehaviour
 {
@@ -30,15 +31,20 @@ public class InteractTest : MonoBehaviour
     {
         if (Game.Instance.input.Default.Interact.triggered && inRange){
             Destroy(interact);
-            replacement.transform.position = new Vector2(pos.x, pos.y);
+            replacement.transform.position = new Vector2(pos.x, pos.y); 
             if (gameObject.tag == "FireStatue") {
                 player.noFireImmunity();
+                player.RelocatePlayer();
+               
+
             }
             if (gameObject.tag == "WaterStatue") {
                 player.noWaterBreathing();
+                player.RelocatePlayer();
             }
             if (gameObject.tag == "AirStatue") {
                 player.noDoubleJump();
+                player.RelocatePlayer();
             }
         }
     }
