@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
-{
-
+{  
+    public Animator animator;
     //x movement speed
     public static float movementSpeed = 5f;
 
@@ -100,8 +100,11 @@ public class Player : MonoBehaviour
             //rb.AddForce(new Vector2(0, -1f) * rb.mass * 1.2f);
 
             // A key
-            if (Game.Instance.input.Default.MoveLeft.WasPressedThisFrame()) { leftIsHeld = true; }
-            if (Game.Instance.input.Default.MoveLeft.WasReleasedThisFrame()) { leftIsHeld = false; }
+            if (Game.Instance.input.Default.MoveLeft.WasPressedThisFrame()) { leftIsHeld = true; 
+            
+                animator.SetTrigger("Run");}
+            if (Game.Instance.input.Default.MoveLeft.WasReleasedThisFrame()) { leftIsHeld = false; 
+                animator.SetTrigger("Idle");}
 
             // move left
             if (leftIsHeld)
@@ -109,12 +112,18 @@ public class Player : MonoBehaviour
                 var curVector = transform.localPosition;
                 curVector.x = curVector.x - movementSpeed * Time.deltaTime;
                 transform.localPosition = curVector;
+                transform.localScale = new Vector3(2,2,1);
                 
             }
 
             // D key
-            if (Game.Instance.input.Default.MoveRight.WasPressedThisFrame()) { rightIsHeld = true; }
-            if (Game.Instance.input.Default.MoveRight.WasReleasedThisFrame()) { rightIsHeld = false; }
+            if (Game.Instance.input.Default.MoveRight.WasPressedThisFrame()) {
+                 rightIsHeld = true;
+                animator.SetTrigger("Run");
+            }
+            if (Game.Instance.input.Default.MoveRight.WasReleasedThisFrame()) { rightIsHeld = false;
+            
+                animator.SetTrigger("Idle");}
 
             // move right
             if (rightIsHeld)
@@ -122,6 +131,7 @@ public class Player : MonoBehaviour
                 var curVector = transform.localPosition;
                 curVector.x = curVector.x + movementSpeed * Time.deltaTime;
                 transform.localPosition = curVector;
+                transform.localScale = new Vector3(-2,2,1);
                 
             }
 
@@ -136,12 +146,16 @@ public class Player : MonoBehaviour
 
                 var vel = rb.velocity;
                 Jump.Play();
+
+                animator.SetTrigger("Jump");
             }
             if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
                 jumpIsHeld = false;
 
                 ResetYVelocity();
                 rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
+
+                animator.SetTrigger("Idle");
             }
 
             // move up
@@ -161,6 +175,7 @@ public class Player : MonoBehaviour
                     jumpIsHeld = false;
                     ResetYVelocity();
                     rb.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
+                    animator.SetTrigger("Idle");
                 }
             }
 
