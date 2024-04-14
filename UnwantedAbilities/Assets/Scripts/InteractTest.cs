@@ -14,6 +14,7 @@ public class InteractTest : MonoBehaviour
     private Vector2 pos;
     private Vector2 textPos;
     private bool inRange;
+    public Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,15 @@ public class InteractTest : MonoBehaviour
         if (Game.Instance.input.Default.Interact.triggered && inRange){
             Destroy(interact);
             replacement.transform.position = new Vector2(pos.x, pos.y);
+            if (gameObject.tag == "FireStatue") {
+                player.noFireImmunity();
+            }
+            if (gameObject.tag == "WaterStatue") {
+                player.noWaterBreathing();
+            }
+            if (gameObject.tag == "AirStatue") {
+                player.noDoubleJump();
+            }
         }
     }
 
