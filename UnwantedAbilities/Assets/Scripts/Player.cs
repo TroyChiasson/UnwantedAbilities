@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private bool jumpIsHeld = false;
 
     private int jumpsAvailable;
-    private int maxJumps = 1;
+    public static int maxJumps = 1;
     public Rigidbody2D rb;
     public static double stamina;
     public LayerMask groundLayer;

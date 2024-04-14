@@ -43,7 +43,7 @@ public class WaterTest : MonoBehaviour
         if (other.CompareTag("Player")){
             Player.movementSpeed = 2.5f;
             Player.jumpSpeed = .1f;
-            Player.jump_tot_time = 100000f;
+            Player.maxJumps = 100000;
             rb2d.gravityScale = 0;
             inWater = true;
             if (jumpIsHeld) {
@@ -56,7 +56,7 @@ public class WaterTest : MonoBehaviour
         if (other.CompareTag("Player")){
             Player.movementSpeed = 5f;
             Player.jumpSpeed = 10f;
-            Player.jump_tot_time = .5f;
+            Player.maxJumps = 1;
             Player.stamina = 100;
             rb2d.AddForce(Vector2.down * 5f, ForceMode2D.Impulse);
             rb2d.gravityScale = 1;
