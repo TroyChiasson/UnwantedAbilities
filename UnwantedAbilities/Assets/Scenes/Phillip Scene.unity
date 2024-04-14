@@ -972,7 +972,7 @@ GameObject:
   - component: {fileID: 1566135691}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3d01946081d0842b52f5875f4e7be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 1996782541}
 --- !u!212 &1566135693
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1438,6 +1439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141ca5628ce6b8c4d81b90eedb5bcbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 0
+  Respawn: 1
   rb: {fileID: 1996782541}
   groundLayer:
     serializedVersion: 2
