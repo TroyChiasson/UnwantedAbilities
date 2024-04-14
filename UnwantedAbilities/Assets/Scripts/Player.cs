@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class Player : MonoBehaviour
     //x movement speed
     public static float movementSpeed = 5f;
 
+    public int walking;
+
     // health 
     public int playerHealth;
 
     // respawn scene
-    public int Respawn = 1; 
+    public int Respawn = 2; 
     //y movement speed
     public static float jumpSpeed = 10f;
 
@@ -42,11 +45,17 @@ public class Player : MonoBehaviour
     public static double stamina;
     public LayerMask groundLayer;
     private float raycastDistance = .5f;
+    public AudioSource Jump;
+    public AudioSource Die;
+    public AudioSource Walk;
+    public AudioSource Damage;
+    public AudioSource Spawn;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        playerHealth = 30; 
+        playerHealth = 30;
         stamina = 100;
         health = 100;
         rb = GetComponent<Rigidbody2D>();
@@ -100,6 +109,7 @@ public class Player : MonoBehaviour
                 var curVector = transform.localPosition;
                 curVector.x = curVector.x - movementSpeed * Time.deltaTime;
                 transform.localPosition = curVector;
+                
             }
 
             // D key
@@ -112,6 +122,7 @@ public class Player : MonoBehaviour
                 var curVector = transform.localPosition;
                 curVector.x = curVector.x + movementSpeed * Time.deltaTime;
                 transform.localPosition = curVector;
+                
             }
 
             // space key
@@ -124,6 +135,7 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
 
                 var vel = rb.velocity;
+                Jump.Play();
             }
             if (Game.Instance.input.Default.Jump.WasReleasedThisFrame() && jumpIsHeld) {
                 jumpIsHeld = false;
@@ -154,12 +166,26 @@ public class Player : MonoBehaviour
 
             if (playerHealth <= 0)
             {
-            SceneManager.LoadScene(Respawn);
-            playerHealth = 30;
+           
+            RespawnPlayer();
             }
-        print(jumpsAvailable);
+
+       
     }
 
+    public void RespawnPlayer()
+    {
+        Die.Play();
+        SceneManager.LoadScene(Respawn);
+        playerHealth = 30;
+    }
+
+    public void RelocatePlayer()
+    {
+        Spawn.Play();
+        transform.localPosition = new Vector3(3.50822997f, 0.633381486f, 0.0486094989f);
+        playerHealth = 30;
+    }
     public void TakeDamage(int trapDamage) {
         playerHealth -= trapDamage;
     }

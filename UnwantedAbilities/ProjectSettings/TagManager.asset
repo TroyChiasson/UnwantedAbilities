@@ -15,6 +15,12 @@ TagManager:
   - FireStatue
   - AirStatue
   - WaterStatue
+  - Spawn
+  - Jump
+  - Damage
+  - Die
+  - Song
+  - Walk
   layers:
   - Default
   - TransparentFX
