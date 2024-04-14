@@ -49,3 +49,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3208017601
+    locked: 0
+  - name: Deco
+    uniqueID: 2531896103
+    locked: 0
+  - name: Fire
+    uniqueID: 2440108187
+    locked: 0
+  - name: Player
+    uniqueID: 647071419
+    locked: 0
+  - name: Water
+    uniqueID: 928691437
+    locked: 0
+  - name: Solid
+    uniqueID: 473315813
+    locked: 0
